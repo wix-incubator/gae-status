@@ -17,6 +17,7 @@ CAPABILITIES = ["blobstore",
                 "urlfetch",
                 "xmpp"]
 
+
 class GetCapabilities(webapp2.RedirectHandler):
     def __init__(self, request=None, response=None):
         super(GetCapabilities, self).__init__(request, response)
@@ -39,6 +40,7 @@ class GetCapabilities(webapp2.RedirectHandler):
 
         response_json = {'capabilities': capability_dict,
                          'timestamp': time.time() * 1000}  # js ready timestamp
+        self.response.headers['Content-Type'] = 'application/json'
         return webapp2.Response.write(self.response, json.dumps(response_json))
 
 app = webapp2.WSGIApplication([
