@@ -23,14 +23,20 @@ class GetCapabilities(webapp2.RedirectHandler):
         super(GetCapabilities, self).__init__(request, response)
 
     def get(self):
-        capability_dict = {}
+        exclude = self.request.get('exclude', None)
+        if exclude:
+            exclude = exclude.split(';')
 
+        capability_dict = {}
         for c in CAPABILITIES:
             l = []
             k = c
             if isinstance(c, tuple):
                 k = c[0]
                 l = [c[1][0]]
+
+            if exclude and k in exclude:
+                continue
 
             cs = capabilities.CapabilitySet(k, l)
             d = {'is_enabled'   : cs.is_enabled(),

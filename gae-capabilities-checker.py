@@ -15,17 +15,21 @@ EXIT_WARN       = 2
 EXIT_CRITICAL   = 2
 
 
-def parseCommandLine():
+def parse_command_line():
     parser = optparse.OptionParser(version="%prog 1.5")
     parser.add_option("-n", "--name", dest="projectName", help="Project name ( e.g. wixarchive2)")
     parser.add_option("-p", "--path", dest="scriptPath", default=DEFAULT_PATH, help="path to the capabilities handler")
+    parser.add_option("-X", "--exclude", dest="excluded", default=None, help="exclude capabilities <CAP-1>[;<CAP-2;...>]")
     (options, args) = parser.parse_args()
     return options
 
 
-def check_capabilities(project, script):
+def check_capabilities(project, script, exclude=None):
     url  = APPSPOT_ADDRESS % project
-    url += script
+    if exclude:
+        url += '%s?exclude=' % (script, exclude)
+    else:
+        url += script
     text = urllib2.urlopen(url).read()
     result = json.loads(text)
     return_code = EXIT_CRITICAL
@@ -51,9 +55,9 @@ def check_capabilities(project, script):
 
 
 def main():
-    options = parseCommandLine()
+    options = parse_command_line()
     try:
-        return_code, return_msg = check_capabilities(options.projectName, options.scriptPath)
+        return_code, return_msg = check_capabilities(options.projectName, options.scriptPath, options.excluded)
         print return_msg
         sys.exit(return_code)
     except Exception, ex:
