@@ -52,7 +52,7 @@
       <file leaf-file-name="gae-capabilities-checker.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gae-capabilities-checker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="98" selection-start="738" selection-end="738" vertical-scroll-proportion="0.82653064" vertical-offset="0" max-vertical-offset="1638">
+            <state line="58" column="0" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.30612245" vertical-offset="864" max-vertical-offset="1584">
               <folding>
                 <element signature="e#66#81#0" expanded="true" />
               </folding>
@@ -576,7 +576,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gae-capabilities-checker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="98" selection-start="738" selection-end="738" vertical-scroll-proportion="0.82653064" vertical-offset="0" max-vertical-offset="1638">
+        <state line="58" column="0" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.30612245" vertical-offset="864" max-vertical-offset="1584">
           <folding>
             <element signature="e#66#81#0" expanded="true" />
           </folding>

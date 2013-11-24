@@ -12,9 +12,10 @@ APPSPOT_ADDRESS = 'http://%s.appspot.com'
 DEFAULT_PATH    = '/gae-capabilities'
 EXIT_GOOD       = 0
 EXIT_WARN       = 2
-EXIT_CRITICAL   = 2  # synonyms
-CAPABILITIES = {"blobstore": "bs",
+EXIT_CRITICAL   = 2
+CAPABILITIES_SYNONYMS = {"blobstore": "bs",
                 "datastore_v3": "ds",
+                "datastore_v3__write": "ds_w",
                 "images": "img",
                 "mail": "ml",
                 "memcache": "mc",
@@ -28,7 +29,6 @@ def parse_command_line():
     parser.add_option("-n", "--name", dest="projectName", help="Project name ( e.g. wixarchive2)")
     parser.add_option("-p", "--path", dest="scriptPath", default=DEFAULT_PATH, help="path to the capabilities handler")
     parser.add_option("-X", "--exclude", dest="excluded", default=None, help="exclude capabilities <CAP-1>[|<CAP-2|...>]")
-    parser.add_option("-c", "--capabilities", action="store_true", dest="capabilities", help="print list of capabilities")
     (options, args) = parser.parse_args()
     return options
 
@@ -54,8 +54,8 @@ def check_capabilities(project, script, exclude=None):
             status = 0 if capabilities[c]['is_enabled'] else 1
             if status != EXIT_GOOD:
                 errors += 1
-            return_msg += '%s(%s) ' % (c, status)
-            second_part += '%s=%s;; ' % (c, status)
+            return_msg += '%s(%s) ' % (CAPABILITIES_SYNONYMS[c], status)
+            second_part += '%s=%s;; ' % (CAPABILITIES_SYNONYMS[c], status)
 
         if errors > 0:
             return_msg = 'NOK: %s' % return_msg
@@ -71,9 +71,6 @@ def check_capabilities(project, script, exclude=None):
 
 def main():
     options = parse_command_line()
-    if options.capabilities:
-        print CAPABILITIES
-        sys.exit(EXIT_GOOD)
     try:
         return_code, return_msg = check_capabilities(options.projectName, options.scriptPath, options.excluded)
         print return_msg
