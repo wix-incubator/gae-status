@@ -12,15 +12,16 @@ APPSPOT_ADDRESS = 'http://%s.appspot.com'
 DEFAULT_PATH    = '/gae-capabilities'
 EXIT_GOOD       = 0
 EXIT_WARN       = 2
-EXIT_CRITICAL   = 2
-CAPABILITIES = ["blobstore",
-                "datastore_v3",
-                "images",
-                "mail",
-                "memcache",
-                "taskqueue",
-                "urlfetch",
-                "xmpp"]
+EXIT_CRITICAL   = 2  # synonyms
+CAPABILITIES = {"blobstore": "bs",
+                "datastore_v3": "ds",
+                "images": "img",
+                "mail": "ml",
+                "memcache": "mc",
+                "taskqueue": "tq",
+                "urlfetch": "uf",
+                "xmpp": "xmpp"}
+
 
 def parse_command_line():
     parser = optparse.OptionParser(version="%prog 1.5")
@@ -44,15 +45,17 @@ def check_capabilities(project, script, exclude=None):
     result = json.loads(text)
     return_code = EXIT_CRITICAL
     return_msg  = ''
+    second_part = ''
 
     if 'capabilities' in result:
         capabilities = result['capabilities']
         errors = 0
         for c in capabilities:
-            status = EXIT_GOOD if capabilities[c]['is_enabled'] else EXIT_WARN
+            status = 0 if capabilities[c]['is_enabled'] else 1
             if status != EXIT_GOOD:
                 errors += 1
             return_msg += '%s(%s) ' % (c, status)
+            second_part += '%s=%s;; ' % (c, status)
 
         if errors > 0:
             return_msg = 'NOK: %s' % return_msg
@@ -60,6 +63,8 @@ def check_capabilities(project, script, exclude=None):
         else:
             return_msg = 'OK: %s' % return_msg
             return_code = EXIT_GOOD
+
+        return_msg += '| ' + second_part
 
     return return_code, return_msg,
 
