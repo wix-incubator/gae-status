@@ -13,13 +13,21 @@ DEFAULT_PATH    = '/gae-capabilities'
 EXIT_GOOD       = 0
 EXIT_WARN       = 2
 EXIT_CRITICAL   = 2
-
+CAPABILITIES = ["blobstore",
+                "datastore_v3",
+                "images",
+                "mail",
+                "memcache",
+                "taskqueue",
+                "urlfetch",
+                "xmpp"]
 
 def parse_command_line():
     parser = optparse.OptionParser(version="%prog 1.5")
     parser.add_option("-n", "--name", dest="projectName", help="Project name ( e.g. wixarchive2)")
     parser.add_option("-p", "--path", dest="scriptPath", default=DEFAULT_PATH, help="path to the capabilities handler")
-    parser.add_option("-X", "--exclude", dest="excluded", default=None, help="exclude capabilities <CAP-1>[;<CAP-2;...>]")
+    parser.add_option("-X", "--exclude", dest="excluded", default=None, help="exclude capabilities <CAP-1>[|<CAP-2|...>]")
+    parser.add_option("-c", "--capabilities", action="store_true", dest="capabilities", help="print list of capabilities")
     (options, args) = parser.parse_args()
     return options
 
@@ -27,9 +35,11 @@ def parse_command_line():
 def check_capabilities(project, script, exclude=None):
     url  = APPSPOT_ADDRESS % project
     if exclude:
-        url += '%s?exclude=' % (script, exclude)
+        url += '%s?exclude=%s' % (script, exclude)
     else:
         url += script
+
+    print url
     text = urllib2.urlopen(url).read()
     result = json.loads(text)
     return_code = EXIT_CRITICAL
@@ -56,6 +66,9 @@ def check_capabilities(project, script, exclude=None):
 
 def main():
     options = parse_command_line()
+    if options.capabilities:
+        print CAPABILITIES
+        sys.exit(EXIT_GOOD)
     try:
         return_code, return_msg = check_capabilities(options.projectName, options.scriptPath, options.excluded)
         print return_msg

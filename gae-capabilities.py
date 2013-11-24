@@ -25,7 +25,7 @@ class GetCapabilities(webapp2.RedirectHandler):
     def get(self):
         exclude = self.request.get('exclude', None)
         if exclude:
-            exclude = exclude.split(';')
+            exclude = exclude.split('|')
 
         capability_dict = {}
         for c in CAPABILITIES:
