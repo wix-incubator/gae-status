@@ -12,7 +12,7 @@ APPSPOT_ADDRESS = 'http://%s.appspot.com'
 DEFAULT_PATH    = '/gae-capabilities'
 EXIT_GOOD       = 0
 EXIT_WARN       = 2
-EXIT_CRITICAL   = 3
+EXIT_CRITICAL   = 2
 
 
 def parseCommandLine():
@@ -22,11 +22,7 @@ def parseCommandLine():
     (options, args) = parser.parse_args()
     return options
 
-"""
-python2.6 /usr/lib/nagios/plugins/staticErrorsCount.py -s s0.aus.wixpress.com
-NOK: sv(0) sv_http(0) lighty(41) vg(27) disp(0) dfstator(0) | supervisor=0;;100;;
-supervisor_http=0;;200;; lighttpd=41;;40;; vangogh=27;;50;; dispatcher=0;;60;; dfstator=0;;70;;
-"""
+
 def check_capabilities(project, script):
     url  = APPSPOT_ADDRESS % project
     url += script
@@ -56,13 +52,13 @@ def check_capabilities(project, script):
 
 def main():
     options = parseCommandLine()
-    #try:
-    return_code, return_msg = check_capabilities(options.projectName, options.scriptPath)
-    print return_msg
-    sys.exit(return_code)
-    #except Exception, ex:
-    #    print 'Failed on checking %s: %s' % (options.projectName, str(ex))
-    #    sys.exit(3)
+    try:
+        return_code, return_msg = check_capabilities(options.projectName, options.scriptPath)
+        print return_msg
+        sys.exit(return_code)
+    except Exception, ex:
+        print 'Failed on checking %s: %s' % (options.projectName, str(ex))
+        sys.exit(EXIT_CRITICAL)
 
 if __name__ == "__main__":
     main()
