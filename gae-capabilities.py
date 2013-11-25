@@ -23,7 +23,8 @@ class GetCapabilities(webapp2.RedirectHandler):
         super(GetCapabilities, self).__init__(request, response)
 
     def get(self):
-        exclude = self.request.get('exclude', None)
+        exclude  = self.request.get('exclude', None)
+        callback = self.request.get('callback', None)
         if exclude:
             exclude = exclude.split('|')
 
@@ -47,7 +48,12 @@ class GetCapabilities(webapp2.RedirectHandler):
         response_json = {'capabilities': capability_dict,
                          'timestamp': time.time() * 1000}  # js ready timestamp
         self.response.headers['Content-Type'] = 'application/json'
-        return webapp2.Response.write(self.response, json.dumps(response_json))
+        response_str = json.dumps(response_json)
+
+        if callback:
+            response_str = '%s(%s)' % (callback, response_str)
+
+        return webapp2.Response.write(self.response, response_str)
 
 app = webapp2.WSGIApplication([
     ('/gae-capabilities', GetCapabilities),

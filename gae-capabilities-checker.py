@@ -14,14 +14,14 @@ EXIT_GOOD       = 0
 EXIT_WARN       = 2
 EXIT_CRITICAL   = 2
 CAPABILITIES_SYNONYMS = {"blobstore": "bs",
-                "datastore_v3": "ds",
-                "datastore_v3__write": "ds_w",
-                "images": "img",
-                "mail": "ml",
-                "memcache": "mc",
-                "taskqueue": "tq",
-                "urlfetch": "uf",
-                "xmpp": "xmpp"}
+                         "datastore_v3": "ds",
+                         "datastore_v3__write": "ds_w",
+                         "images": "img",
+                         "mail": "ml",
+                         "memcache": "mc",
+                         "taskqueue": "tq",
+                         "urlfetch": "uf",
+                         "xmpp": "xmpp"}
 
 
 def parse_command_line():
