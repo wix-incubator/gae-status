@@ -9,7 +9,8 @@ import json
 import sys
 
 APPSPOT_ADDRESS = 'http://%s.appspot.com'
-DEFAULT_PATH    = '/gae-capabilities'
+DEFAULT_PROJECT = 'gae-capabilities'
+DEFAULT_PATH    = '/'
 EXIT_GOOD       = 0
 EXIT_WARN       = 2
 EXIT_CRITICAL   = 2
@@ -26,7 +27,7 @@ CAPABILITIES_SYNONYMS = {"blobstore": "bs",
 
 def parse_command_line():
     parser = optparse.OptionParser(version="%prog 1.5")
-    parser.add_option("-n", "--name", dest="projectName", help="Project name ( e.g. wixarchive2)")
+    parser.add_option("-n", "--name", dest="projectName", default=DEFAULT_PROJECT, help="Project name ( e.g. wixarchive2)")
     parser.add_option("-p", "--path", dest="scriptPath", default=DEFAULT_PATH, help="path to the capabilities handler")
     parser.add_option("-X", "--exclude", dest="excluded", default=None, help="exclude capabilities <CAP-1>[|<CAP-2|...>]")
     (options, args) = parser.parse_args()
@@ -40,7 +41,6 @@ def check_capabilities(project, script, exclude=None):
     else:
         url += script
 
-    print url
     text = urllib2.urlopen(url).read()
     result = json.loads(text)
     return_code = EXIT_CRITICAL

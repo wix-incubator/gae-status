@@ -56,5 +56,5 @@ class GetCapabilities(webapp2.RedirectHandler):
         return webapp2.Response.write(self.response, response_str)
 
 app = webapp2.WSGIApplication([
-    ('/gae-capabilities', GetCapabilities),
+    ('/', GetCapabilities),
 ], debug=True)
