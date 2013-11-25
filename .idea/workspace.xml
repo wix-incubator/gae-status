@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25249ade-e6e0-4d86-bfdc-035b9ee256a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.yaml" afterPath="$PROJECT_DIR$/app.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gae_capabilities.py" afterPath="$PROJECT_DIR$/gae_capabilities.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gae_capabilities_checker.py" afterPath="$PROJECT_DIR$/gae_capabilities_checker.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="gae-services-status.iws" />
@@ -53,7 +50,7 @@
       <file leaf-file-name="gae_capabilities_checker.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gae_capabilities_checker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="43" selection-start="2525" selection-end="2525" vertical-scroll-proportion="0.5966387" vertical-offset="1119" max-vertical-offset="1512">
+            <state line="77" column="25" selection-start="2481" selection-end="2481" vertical-scroll-proportion="0.5462185" vertical-offset="1119" max-vertical-offset="1512">
               <folding />
             </state>
           </provider>
@@ -571,7 +568,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gae_capabilities_checker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="43" selection-start="2525" selection-end="2525" vertical-scroll-proportion="0.5966387" vertical-offset="1119" max-vertical-offset="1512">
+        <state line="77" column="25" selection-start="2481" selection-end="2481" vertical-scroll-proportion="0.5462185" vertical-offset="1119" max-vertical-offset="1512">
           <folding />
         </state>
       </provider>
