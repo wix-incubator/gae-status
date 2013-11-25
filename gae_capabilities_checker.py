@@ -55,7 +55,7 @@ def check_capabilities(project, script, exclude=None):
             if status != EXIT_GOOD:
                 errors += 1
             return_msg += '%s(%s) ' % (CAPABILITIES_SYNONYMS[c], status)
-            second_part += '%s=%s;; ' % (CAPABILITIES_SYNONYMS[c], status)
+            second_part += '%s=%s ' % (CAPABILITIES_SYNONYMS[c], status)
 
         if errors > 0:
             return_msg = 'NOK: %s' % return_msg
